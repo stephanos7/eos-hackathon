@@ -2,7 +2,7 @@
 
 class attestationsBook : public eosio::contract {
    public:
-      attestationsBook( account_name s ):
+      attestations( account_name s ):
          contract( s ),   // initialization of the base class for the contract
          _records( s, s ) // initialize the table with code and scope NB! Look up definition of code and scope   
       {
@@ -73,4 +73,4 @@ class attestationsBook : public eosio::contract {
       record_table _records;
 };
 
-EOSIO_ABI( attestationsBook, (create) )
+EOSIO_ABI( attestations, (create) )
