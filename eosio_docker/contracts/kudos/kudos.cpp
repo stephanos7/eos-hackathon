@@ -14,32 +14,30 @@ class attestationsBook : public eosio::contract {
          require_auth( owner );
          require_auth( attester );
 
+            // bool validAttestator = std::find(std::begin(array), std::end(array), attester);
+            // // When the element is not found, std::find returns the end of the range
+            // if (validAttestator != std::end(array)) {
+            // return true
+            // } else {
+            // return false
+            // }
+
          // _records.end() is in a way similar to null and it means that the value isn't found
          // uniqueness of primary key is enforced at the library level but we can enforce it in the contract with a
          // better error message
-         eosio_assert( _records.find( owner ) == _records.end(), "This record already exists in the addressbook" );
-
-            bool validAttestator = std::find(std::begin(array), std::end(array), attester);
-            // When the element is not found, std::find returns the end of the range
-            if (validAttestator != std::end(array)) {
-            return true
-            } else {
-            return false
-}
-
-
-         eosio_assert( validAttestator );
+         eosio_assert( _records.find( attestation ) == _records.end(), "This record already exists in the attestationsbook" ); 
+         eosio_assert( attester == "postoffice");
 
          // we use phone as a secondary key                                                                                 
          // secondary key is not necessarily unique, we will enforce its uniqueness in this contract
-         auto idx = _records.get_index<N(byphone)>();
-         eosio_assert( idx.find( phone ) == idx.end(), "Phone number is already taken" );
+      //    auto idx = _records.get_index<N(byphone)>();
+      //    eosio_assert( idx.find( phone ) == idx.end(), "Phone number is already taken" );
 
-         _records.emplace( owner, [&]( auto& rcrd ) {
-            rcrd.owner    = owner;
-            rcrd.phone    = phone;
-            rcrd.fullname = fullname;
-            rcrd.address  = address;
+         _records.emplace( attestation) {
+            rcrd.attestation    = attestation;
+            rcrd.verdict = verdict;
+            rcrd.owner = owner;
+            rcrd.attester  = attester;
          });
       }
 
@@ -75,16 +73,14 @@ class attestationsBook : public eosio::contract {
          attestation  string;    
          verdict      bool;                                   
 
-         uint64_t primary_key() const { return owner; }
-         uint64_t by_phone() const    { return phone; }
+         uint64_t primary_key() const { return attestation; }
       };
 
       typedef eosio::multi_index< N(records), record,
-         eosio::indexed_by<N(byphone), eosio::const_mem_fun<record, uint64_t, &record::by_phone> >
       > record_table;
 
       // Creating the instance of the `record_table` type                      
       record_table _records;
 };
 
-EOSIO_ABI( addressbook, (create)(remove)(update) )
+EOSIO_ABI( attestationsBook, (create) )
