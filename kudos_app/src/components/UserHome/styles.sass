@@ -1,6 +1,6 @@
 @import '../../variables.sass'
 
-$animation-time: 7s
+$animation-time: 1s
 
 .splash-container
     width: 100%
@@ -61,10 +61,11 @@ $animation-time: 7s
     text-align: center
     animation: show $animation-time ease
     
-    p
-        padding: 0 20px
+    p, .options-container
+        padding: 0 30px
 
-.options-container button
+
+.options-container button, .options-container a
     margin: 5px
     width: 120px
     height: 40px

@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  animation: 7s ease fade-out-anim;
+  animation: 1s ease fade-out-anim;
   visiblility: hidden;
   opacity: 0;
   justify-content: center;
@@ -51,11 +51,11 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
-  animation: show 7s ease; }
-  .welcome-user-container p {
-    padding: 0 20px; }
+  animation: show 1s ease; }
+  .welcome-user-container p, .welcome-user-container .options-container {
+    padding: 0 30px; }
 
-.options-container button {
+.options-container button, .options-container a {
   margin: 5px;
   width: 120px;
   height: 40px; }
