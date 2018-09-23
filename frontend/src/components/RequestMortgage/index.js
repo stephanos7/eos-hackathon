@@ -29,6 +29,11 @@ class RequestMortgage extends Component {
     this.setState({ openModal: false });
   };
 
+  setRequested() {
+    console.log("set requested");
+    localStorage.setItem("requested", true);
+  }
+
   render() {
     return (
       <main className="vertical-center">
@@ -83,6 +88,7 @@ class RequestMortgage extends Component {
               permission
               <Button
                 component={Link}
+                onClick={this.setRequested()}
                 to="/requestor"
                 variant="contained"
                 className="buttons"
