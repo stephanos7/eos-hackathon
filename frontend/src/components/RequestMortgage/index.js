@@ -29,7 +29,6 @@ class RequestMortgage extends Component {
           <FormControlLabel
             control={<Switch value="checkedD" />}
             label="Disabled"
-            class={}
           />
         </FormGroup>
       </main>
