@@ -51,7 +51,7 @@ class Index extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      noteTable: [] // to store the table rows from smart contract
+      record_table: [] // to store the table rows from smart contract
     };
     this.handleFormEvent = this.handleFormEvent.bind(this);
   }
@@ -65,7 +65,8 @@ class Index extends Component {
     // collect form data
     let account = event.target.account.value;
     let privateKey = event.target.privateKey.value;
-    let note = event.target.note.value;
+    let attestation = event.target.note.value;
+    let verdict = 1;
 
     // prepare variables for the switch below to send transactions
     let actionName = "";
@@ -74,10 +75,11 @@ class Index extends Component {
     // define actionName and action according to event type
     switch (event.type) {
       case "submit":
-        actionName = "update";
+        actionName = "create";
         actionData = {
-          _user: account,
-          _note: note,
+          owner: "stephanos",
+          attestation: "isHuman",
+          verdict: 1
         };
         break;
       default:
@@ -88,11 +90,11 @@ class Index extends Component {
     const eos = Eos({keyProvider: privateKey});
     const result = await eos.transaction({
       actions: [{
-        account: "notechainacc",
+        account: "postoffice",
         name: actionName,
         authorization: [{
           actor: account,
-          permission: 'active',
+          permission: 'owner',
         }],
         data: actionData,
       }],
@@ -103,16 +105,16 @@ class Index extends Component {
   }
 
   // gets table data from the blockchain
-  // and saves it into the component state: "noteTable"
+  // and saves it into the component state: "record_table"
   getTable() {
     const eos = Eos();
     eos.getTableRows({
       "json": true,
-      "code": "notechainacc",   // contract who owns the table
-      "scope": "notechainacc",  // scope of the table
-      "table": "notestruct",    // name of the table as specified by the contract abi
+      "code": "eosio",   // contract who owns the table
+      "scope": "eosio",  // scope of the table
+      "table": "struc",    // name of the table as specified by the contract abi
       "limit": 100,
-    }).then(result => this.setState({ noteTable: result.rows }));
+    }).then(result => this.setState({ record_table: result.rows }));
   }
 
   componentDidMount() {
@@ -120,7 +122,7 @@ class Index extends Component {
   }
 
   render() {
-    const { noteTable } = this.state;
+    const { record_table } = this.state;
     const { classes } = this.props;
 
     // generate each note as a card
@@ -139,7 +141,7 @@ class Index extends Component {
         </CardContent>
       </Card>
     );
-    let noteCards = noteTable.map((row, i) =>
+    let noteCards = record_table.map((row, i) =>
       generateCard(i, row.timestamp, row.user, row.note));
 
     return (
