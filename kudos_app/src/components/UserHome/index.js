@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import "./styles.css";
-import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 class Main extends Component {
   render() {
     return (
-      <main>
-        <div className="splash-container">
+      <main className="vertical-center">
+        {/* <div className="splash-container">
           <div className="logo" />
-        </div>
+        </div> */}
         <div className="welcome-user-container">
           <h2>Kudos</h2>
           <p>
-            Welcome to KUDOS, where you have full control of your identity
+            Welcome to KUDOS, where you hitave full control of your identity
             verification
           </p>
           <p>Tell me what authentication are you preparing for?</p>

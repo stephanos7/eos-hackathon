@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./styles.css";
 import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   button: {
@@ -46,7 +46,12 @@ class Mortgage extends Component {
           type="file"
         />
         <div className="submit-button">
-          <Button variant="contained" className={styles.submitButton}>
+          <Button
+            component={Link}
+            to="/apply/complete"
+            variant="contained"
+            className={styles.submitButton}
+          >
             Submit
           </Button>
         </div>
