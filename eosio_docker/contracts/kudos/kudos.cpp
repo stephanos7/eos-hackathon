@@ -1,6 +1,6 @@
 #include <eosiolib/eosio.hpp>
 
-class attestationsBook : public eosio::contract {
+class attestations : public eosio::contract {
    public:
       attestations( account_name s ):
          contract( s ),   // initialization of the base class for the contract
@@ -9,22 +9,21 @@ class attestationsBook : public eosio::contract {
       }
 
       /// @abi action
-      void create( account_name owner, const std::string& attestation, bool verdict ) {
+      void create( account_name owner, uint64_t uid, const std::string& attestation, bool verdict ) {
 
          require_auth( owner );
 
          // _records.end() is in a way similar to null and it means that the value isn't found
          // uniqueness of primary key is enforced at the library level but we can enforce it in the contract with a
          // better error message
-         uint64_t uid = 77856422844;
          auto idx = _records.get_index<N(byUid)>();
          eosio_assert( idx.find( uid ) == idx.end(), "attestation exists..." );
 
          _records.emplace(owner, [&]( auto& rcrd ) {
             rcrd.owner = owner;
-            rcrd.uid = uid;
             rcrd.attestation = attestation;
             rcrd.verdict = verdict;
+            rcrd.uid = uid;
          });
       }
 
@@ -60,9 +59,8 @@ class attestationsBook : public eosio::contract {
          std::string attestation;
          bool verdict;                                   
 
-         uint64_t primary_key() const { return owner; }
-         uint64_t by_uid() const    { return uid; }
-
+         uint64_t primary_key() const { return uid; }
+         uint64_t by_uid() const { return uid;}
       };
 
       typedef eosio::multi_index< N(records), record,
