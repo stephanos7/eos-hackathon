@@ -11,7 +11,8 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
@@ -21,6 +22,9 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true
 }
