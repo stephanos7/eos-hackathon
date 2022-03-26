@@ -10,7 +10,8 @@
     "eosjs": "16.0.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "^2.0.0"
+    "react-scripts": "^2.0.0",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
@@ -20,6 +21,9 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true
 }
