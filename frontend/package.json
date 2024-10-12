@@ -10,7 +10,7 @@
     "eosjs": "16.0.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "^2.0.0"
+    "react-scripts": "^5.0.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
